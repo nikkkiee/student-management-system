@@ -153,6 +153,41 @@ app.get("/api/students", (req, res) => {
   });
 });
 
+// adding POST API
+app.post("/api/students", (req, res) => {
+  const { name, email, phone, roll_number, course, semester } = req.body;
+
+  const sql = `
+    INSERT INTO students
+    (name, email, phone, roll_number, course, semester)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    name,
+    email,
+    phone,
+    roll_number,
+    course,
+    semester
+  ];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+
+      return res.status(500).json({
+        message: "Failed to add student"
+      });
+    }
+
+    res.status(201).json({
+      message: "Student added successfully",
+      studentId: result.insertId
+    });
+  });
+});
+
 app.listen(8000, () => {
   console.log("Node server running on port 8000");
 });
