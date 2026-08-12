@@ -7,15 +7,26 @@
 // export default Dashboard;
 
 
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
+
+// function Dashboard() {
+//   return (
+//     <>
+//       <Navbar />
+
+//       <h1>Dashboard Page</h1>
+//     </>
+//   );
+// }
+
+// export default Dashboard;
 
 function Dashboard() {
   return (
-    <>
-      <Navbar />
-
-      <h1>Dashboard Page</h1>
-    </>
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome to Student Management System</p>
+    </div>
   );
 }
 

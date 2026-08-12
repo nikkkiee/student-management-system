@@ -197,6 +197,63 @@ app.post("/api/students", (req, res) => {
   });
 });
 
+
+app.put("/api/students/:id", (req, res) => {
+  const { id } = req.params;
+
+  const {
+    name,
+    email,
+    phone,
+    roll_number,
+    course,
+    semester
+  } = req.body;
+
+  const sql = `
+    UPDATE students
+    SET
+      name = ?,
+      email = ?,
+      phone = ?,
+      roll_number = ?,
+      course = ?,
+      semester = ?
+    WHERE id = ?
+  `;
+
+  const values = [
+    name,
+    email,
+    phone,
+    roll_number,
+    course,
+    semester,
+    id
+  ];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+
+      return res.status(500).json({
+        message: "Failed to update student"
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "Student not found"
+      });
+    }
+
+    res.json({
+      message: "Student updated successfully"
+    });
+  });
+});
+
+
 app.listen(8000, () => {
   console.log("Node server running on port 8000");
 });
